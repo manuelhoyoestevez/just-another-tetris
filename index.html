@@ -3,9 +3,45 @@
   <head>
     <meta charset="utf-8">
     <title>Just Another React App</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      table, td, th {
+        border: 1px solid black;
+      }
+      td{
+        width:16px;
+        height:16px;
+        overflow:hidden;
+        word-wrap:break-word;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
-    <script src="app.bundle.js"></script>
+    <body>
+      <h1>Vanilla JS Redux example</h1>
+      <div class="container">
+        <button id="increaseCounterButton"> + (0) </button>
+        <span id="countLabel"></span>
+        <button id="decreaseCounterButton"> - (0) </button>
+      </div>
+      <table>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="background-color: blue"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
   </body>
+  <script src="app.bundle.js"></script>
 </html>
