@@ -24,6 +24,14 @@ export default class Board {
         }
 
         return this.blockIndex[i][j];
+    }
+    
+    moveLeft(){
+		return this.blockSet.moveLeft();
+    }
+    
+    moveRight(){
+		return this.blockSet.moveRight();
 	}
 
     move(movement){

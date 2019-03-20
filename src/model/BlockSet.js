@@ -31,6 +31,13 @@ export default class BlockSet {
 		this.height = 1 + this.maxI - this.minI;
 		this.width = 1 + this.maxJ - this.minJ;
 
+		console.log('minI', this.minI);
+		console.log('maxI', this.maxI);
+		console.log('minJ', this.minJ);
+		console.log('maxJ', this.maxJ);
+		console.log('height', this.height);
+		console.log('width', this.width);
+
 		this.blockIndex = [];
 		
 		for(let i = 0; i < this.height; i++){
@@ -45,6 +52,16 @@ export default class BlockSet {
 		for(let block of this.blockArray) {
 			this.blockIndex[block.indexI - this.minI][block.indexJ - this.minJ] = block;
 		}
+	}
+
+	moveLeft(){
+		this.indexJ--;
+		return this;
+	}
+
+	moveRight(){
+		this.indexJ++;
+		return this;
 	}
 
 	getBlock(i, j){
