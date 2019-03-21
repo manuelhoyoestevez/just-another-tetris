@@ -11,15 +11,10 @@ import Engine from './Engine';
         engine.draw(tetrisTag);
         engine.refresh();
 
-        const upButton = document.getElementById('buttonUp');
-        const downButton = document.getElementById('buttonDown');
-        const leftButton = document.getElementById('buttonLeft');
-        const rightButton = document.getElementById('buttonRight');
-
-        const aButton = document.getElementById('buttonA');
-        const bButton = document.getElementById('buttonB');
+        // Gravedad
+        setInterval(() => { engine.move('down'); engine.refresh();  }, 100);
         
-        upButton.addEventListener('click', function(event) {
+        document.getElementById('buttonUp').addEventListener('click', function(event) {
             console.log('Button: UP');
             event.preventDefault();
             engine.move('up');
@@ -27,7 +22,7 @@ import Engine from './Engine';
             return false;
         });
 
-        downButton.addEventListener('click', function(event) {
+        document.getElementById('buttonDown').addEventListener('click', function(event) {
             console.log('Button: DOWN');
             event.preventDefault();
             engine.move('down');
@@ -35,7 +30,15 @@ import Engine from './Engine';
             return false;
         });
 
-        leftButton.addEventListener('click', function(event) {
+        document.getElementById('buttonRight').addEventListener('click', function(event) {
+            console.log('Button: RIGHT');
+            event.preventDefault();
+            engine.move('right');
+            engine.refresh();
+            return false;
+        });
+
+        document.getElementById('buttonLeft').addEventListener('click', function(event) {
             console.log('Button: LEFT');
             event.preventDefault();
             engine.move('left');
@@ -43,7 +46,7 @@ import Engine from './Engine';
             return false;
         });
 
-        aButton.addEventListener('click', function (event) {
+        document.getElementById('buttonA').addEventListener('click', function (event) {
             console.log('Button: A');
             event.preventDefault();
             engine.move('turnA');
@@ -51,7 +54,7 @@ import Engine from './Engine';
             return false;
         });
 
-        bButton.addEventListener('click', function (event) {
+        document.getElementById('buttonB').addEventListener('click', function (event) {
             console.log('Button: B');
             event.preventDefault();
             engine.move('turnB');

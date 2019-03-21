@@ -1,5 +1,3 @@
-import Block from './model/Block';
-import BlockSet from './model/BlockSet';
 import Board from './model/Board';
 import TableView from './views/TableView';
 

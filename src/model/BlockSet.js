@@ -48,7 +48,13 @@ export default class BlockSet {
 	}
 
 	copy() {
-		return new BlockSet(this.type, this.indexI, this.indexJ, this.blockArray);
+		let blockArrayCopy = [];
+
+		for(let block of this.blockArray){
+			blockArrayCopy.push(block.copy());
+		}
+
+		return new BlockSet(this.type, this.indexI, this.indexJ, blockArrayCopy);
 	}
 
 	move(movement) {

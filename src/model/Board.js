@@ -9,7 +9,7 @@ export default class Board {
         this.height = height;
         this.width = width;
         this.blockIndex = [];
-        this.tetrominos = ['J', 'L'];
+        this.tetrominos = ['J', 'L', 'I'];
 
         this.blockSet = this.generateNewBlockSet();
 
@@ -64,10 +64,21 @@ export default class Board {
             lastBlockSet: this.blockSet,
             newBlockSet: newBlockSet,
             crash: this.crash(newBlockSet),
-            movement: movement
+            movement: movement,
+            gameOver: false
         };
 
         if(movement === 'down' && ret.crash){
+            for(let block of this.blockSet.blockArray){
+                if(this.blockSet.indexI + block.indexI < 0){
+                    ret.gameOver = true;
+                    break;
+                }
+
+                this.blockIndex[this.blockSet.indexI + block.indexI][this.blockSet.indexJ + block.indexJ] = block;
+            }
+
+            // Transferir todos los blocks al board
             this.blockSet = this.getNextBlockSet();
         }
         else if(!ret.crash) {
@@ -80,9 +91,6 @@ export default class Board {
     crash(blockSet){
 
         for(let block of blockSet.blockArray) {
-            if(blockSet.indexI + block.indexI < 0){
-                return true;
-            }
 
             if(blockSet.indexJ + block.indexJ < 0){
                 return true;
@@ -94,6 +102,10 @@ export default class Board {
 
             if(blockSet.indexJ + block.indexJ >= this.width){
                 return true;
+            }
+
+            if(blockSet.indexI + block.indexI < 0){
+                continue;
             }
 
             if(this.blockIndex[blockSet.indexI + block.indexI][blockSet.indexJ + block.indexJ] !== null){
