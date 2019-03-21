@@ -1,10 +1,10 @@
 export default class BlockSet {
 
-	constructor (indexI, indexJ, blockArray) {
+	constructor (type, indexI, indexJ, blockArray) {
+		this.type = type;
 		this.indexI = indexI;
 		this.indexJ = indexJ;
 		this.blockArray = blockArray;
-
 		this.minI = 0;
 		this.maxI = 0;
 		this.minJ = 0;
@@ -31,13 +31,6 @@ export default class BlockSet {
 		this.height = 1 + this.maxI - this.minI;
 		this.width = 1 + this.maxJ - this.minJ;
 
-		console.log('minI', this.minI);
-		console.log('maxI', this.maxI);
-		console.log('minJ', this.minJ);
-		console.log('maxJ', this.maxJ);
-		console.log('height', this.height);
-		console.log('width', this.width);
-
 		this.blockIndex = [];
 		
 		for(let i = 0; i < this.height; i++){
@@ -54,14 +47,16 @@ export default class BlockSet {
 		}
 	}
 
-	moveLeft(){
-		this.indexJ--;
-		return this;
+	copy() {
+		return new BlockSet(this.type, this.indexI, this.indexJ, this.blockArray);
 	}
 
-	moveRight(){
-		this.indexJ++;
-		return this;
+	move(movement) {
+		let ret = this.copy();
+
+		movement(ret);
+
+		return ret;
 	}
 
 	getBlock(i, j){
@@ -86,17 +81,5 @@ export default class BlockSet {
 		}
 
 		return this.blockIndex[i - this.minI][j - this.minJ]
-	}
-
-	copy() {
-		return new BlockSet(this.indexI, this.indexJ, this.blocks);
-	}
-
-	move(movement) {
-		let ret = this.copy();
-
-		movement(ret);
-
-		return ret;
 	}
 }

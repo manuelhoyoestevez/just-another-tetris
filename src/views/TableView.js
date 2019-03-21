@@ -25,8 +25,6 @@ export default class TableView {
 			for(let j = 0; j < this.board.width; j++){
 				let block = this.board.getBlock(i, j);
 
-				console.log('i', i, 'j', j, block);
-
 				if(block !== null){
 					this.tableNode.children[i].children[j].classList.add("filled");
 				}

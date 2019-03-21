@@ -6,15 +6,7 @@ import TableView from './views/TableView';
 export default class Engine {
 
 	constructor (width, height) {
-		let blocks = [
-		  new Block(-1, 0, 1, 0),
-		  new Block(-1,-1, 1, 0),
-		  new Block( 0,-1, 1, 0),
-		  new Block( 1,-1, 1, 0)
-		];
-
-		this.blockSet = new BlockSet(2, 2, blocks);
-		this.board = new Board(width, height, this.blockSet);
+		this.board = new Board(width, height);
 		this.view = new TableView(this.board);
 	}
 
@@ -38,11 +30,7 @@ export default class Engine {
 		return this.board.getBlock(i, j);
 	}
 
-	moveLeft(){
-		return this.board.moveLeft();
-	}
-
-	moveRight(){
-		return this.board.moveRight();
+	move(movement){
+		return this.board.move(movement);
 	}
 }

@@ -1,10 +1,23 @@
+import Block from './Block';
+import BlockSet from './BlockSet';
+import Tetrominos from './Tetrominos';
+import Movements from './Movements';
+
 export default class Board {
 
-    constructor (width, height, blockSet) {
+    constructor (width, height) {
         this.height = height;
         this.width = width;
-        this.blockSet = blockSet;
         this.blockIndex = [];
+        this.tetrominos = ['J', 'L'];
+
+        this.blockSet = this.generateNewBlockSet();
+
+        this.blockSetBuffer = [];
+
+        for(let i = 0; i < 3; i++){
+            this.blockSetBuffer.push(this.generateNewBlockSet());
+        }
 
         for(let i = 0; i < height; i++){
             let line = [];
@@ -14,6 +27,23 @@ export default class Board {
 
             this.blockIndex.push(line);
         }
+    }
+    
+    generateNewBlockSet(){
+        let blockArray = [];
+        const index = Math.round((this.tetrominos.length - 1) * Math.random());
+        const tetrominoType = this.tetrominos[index];
+
+        for(let pair of Tetrominos[tetrominoType]){
+            blockArray.push(new Block(pair[0], pair[1], tetrominoType, 0));
+        }
+
+        return new BlockSet(tetrominoType, 0, Math.floor(this.width / 2), blockArray);
+    }
+
+    getNextBlockSet() {
+        this.blockSetBuffer.push(this.generateNewBlockSet());
+        return this.blockSetBuffer.shift();
     }
 
     getBlock(i, j){
@@ -26,29 +56,30 @@ export default class Board {
         return this.blockIndex[i][j];
     }
     
-    moveLeft(){
-		return this.blockSet.moveLeft();
-    }
-    
-    moveRight(){
-		return this.blockSet.moveRight();
-	}
-
     move(movement){
-        let newBlockSet = this.blockSet.move(movement);
+        let movementFunction = Movements[movement];
+        let newBlockSet = this.blockSet.move(movementFunction);
 
-        if(this.crash(newBlockSet)) {
-            return false;
+        let ret = {
+            lastBlockSet: this.blockSet,
+            newBlockSet: newBlockSet,
+            crash: this.crash(newBlockSet),
+            movement: movement
+        };
+
+        if(movement === 'down' && ret.crash){
+            this.blockSet = this.getNextBlockSet();
         }
-        else {
+        else if(!ret.crash) {
             this.blockSet = newBlockSet;
-            return true;
         }
+
+        return ret;
     }
 
     crash(blockSet){
 
-        for(let block of blockSet.blocks) {
+        for(let block of blockSet.blockArray) {
             if(blockSet.indexI + block.indexI < 0){
                 return true;
             }
@@ -69,7 +100,6 @@ export default class Board {
                 return true;
             }
         }
-
 
         return false;
     }

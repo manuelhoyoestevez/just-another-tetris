@@ -1,6 +1,6 @@
 export default class Block {
 
-	constructor (indexI, indexJ, type, status) {
+	constructor (indexJ, indexI, type, status) {
 		this.type = type;
 		this.status = status;
 
@@ -8,4 +8,5 @@ export default class Block {
 		this.indexI = indexI;
 		this.indexJ = indexJ;
 	}
+	
 }
