@@ -5,27 +5,32 @@ import Movements from './Movements';
 
 export default class Board {
 
+    generateBlankLine() {
+        let line = [];
+
+        for(let j = 0; j < this.width; j++){
+            line.push(null);
+        }
+
+        return line;
+    }
+
     constructor (width, height) {
         this.height = height;
         this.width = width;
         this.blockIndex = [];
-        this.tetrominos = ['J', 'L', 'I'];
+        this.tetrominos = ['I']; //['J', 'L', 'I'];
 
         this.blockSet = this.generateNewBlockSet();
 
         this.blockSetBuffer = [];
 
-        for(let i = 0; i < 3; i++){
+        for(let k = 0; k < 3; k++){
             this.blockSetBuffer.push(this.generateNewBlockSet());
         }
 
-        for(let i = 0; i < height; i++){
-            let line = [];
-            for(let j = 0; j < width; j++){
-                line.push(null);
-            }
-
-            this.blockIndex.push(line);
+        for(let i = 0; i < this.height; i++){
+            this.blockIndex.push(this.generateBlankLine());
         }
     }
     
@@ -46,7 +51,7 @@ export default class Board {
         return this.blockSetBuffer.shift();
     }
 
-    getBlock(i, j){
+    getBlock(i, j) {
         let ret = this.blockSet.getBlock(i, j);
         
         if(ret !== null){
@@ -54,6 +59,15 @@ export default class Board {
         }
 
         return this.blockIndex[i][j];
+    }
+
+    lineOn(i) {
+        for(let j = 0; j < this.width; j++) {
+            if(this.getBlock(i, j) === null) {
+                return false;
+            }
+        }
+        return true;
     }
     
     move(movement){
@@ -65,24 +79,45 @@ export default class Board {
             newBlockSet: newBlockSet,
             crash: this.crash(newBlockSet),
             movement: movement,
-            gameOver: false
+            gameover: false,
+            lines: []
         };
 
-        if(movement === 'down' && ret.crash){
+        if(!ret.crash) {
+            this.blockSet = newBlockSet;
+        }
+        else if(movement === 'down'){
+            let heights = [];
+
             for(let block of this.blockSet.blockArray){
-                if(this.blockSet.indexI + block.indexI < 0){
-                    ret.gameOver = true;
+                const indexI = this.blockSet.indexI + block.indexI;
+                const indexJ = this.blockSet.indexJ + block.indexJ;
+
+                if(heights.indexOf(indexI) < 0){
+                    heights.push(indexI);
+                }
+
+                if(indexI < 0){
+                    ret.gameover = true;
                     break;
                 }
 
-                this.blockIndex[this.blockSet.indexI + block.indexI][this.blockSet.indexJ + block.indexJ] = block;
+                this.blockIndex[indexI][indexJ] = block;
             }
 
-            // Transferir todos los blocks al board
+            for(let i of heights.sort()){
+                if(this.lineOn(i)) {
+                    ret.lines.push(i);
+
+                    for(let k = i; k > 0; k--){
+                        this.blockIndex[k] = this.blockIndex[k - 1];
+                    }
+    
+                    this.blockIndex[0] = this.generateBlankLine();
+                }
+            }
+            
             this.blockSet = this.getNextBlockSet();
-        }
-        else if(!ret.crash) {
-            this.blockSet = newBlockSet;
         }
 
         return ret;

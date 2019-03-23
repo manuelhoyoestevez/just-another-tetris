@@ -1,0 +1,17 @@
+export default [
+    { lines:   0, speedTime: 1000 },
+    { lines:  10, speedTime:  900 },
+    { lines:  20, speedTime:  800 },
+    { lines:  30, speedTime:  700 },
+    { lines:  40, speedTime:  600 },
+    { lines:  50, speedTime:  500 },
+    { lines:  60, speedTime:  400 },
+    { lines:  70, speedTime:  300 },
+    { lines:  80, speedTime:  200 },
+    { lines:  90, speedTime:  100 },
+    { lines: 100, speedTime:   70 },
+    { lines: 110, speedTime:   50 },
+    { lines: 120, speedTime:   30 },
+    { lines: 130, speedTime:   20 },
+    { lines: 140, speedTime:   10 },
+];

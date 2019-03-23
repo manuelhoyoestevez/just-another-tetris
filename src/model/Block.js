@@ -9,8 +9,7 @@ export default class Block {
 		this.indexJ = indexJ;
 	}
 
-	copy(){
+	copy() {
 		return new Block(this.indexJ, this.indexI, this.type, this.status);
 	}
-	
 }
