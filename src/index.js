@@ -12,8 +12,66 @@ import Engine from './Engine';
         engine.refresh();
 
         // Gravedad
-        setInterval(() => { engine.move('down'); engine.refresh();  }, 100);
+        //setInterval(() => { engine.move('down'); engine.refresh();  }, 100);
+        /*
+        document.onkeypress = function (event) {
+            event = event || window.event;
+            console.log('event', event);
+            // use e.keyCode
+        };
+*/
+        document.onkeydown = function checkKey(event) {
+            event = event || window.event;
         
+            switch(event.keyCode){
+                 case 37:
+                    console.log('left');
+                    engine.move('left');
+                    engine.refresh();
+                    return false;
+
+                 case 38:
+                    console.log('up');
+                    engine.move('up');
+                    engine.refresh();
+                    return false;
+
+                 case 39:
+                    console.log('right');
+                    engine.move('right');
+                    engine.refresh();
+                    return false;
+
+                 case 40:
+                    console.log('down');
+                    engine.move('down');
+                    engine.refresh();
+                    return false;
+                
+                case 13: // Enter
+                case 16: // Shift
+                case 17: // Cntl
+                case 18: // AltGr
+                case 18: // Spacebar
+                    console.log('Button: A');
+                    //event.preventDefault();
+                    engine.move('turnA');
+                    engine.refresh();
+                    return false;
+
+                case 101: // Keypad 5
+                    console.log('Button: B');
+                    //event.preventDefault();
+                    engine.move('turnB');
+                    engine.refresh();
+                    return false;
+
+                default:
+                    console.log('event', event.keyCode, event);
+            }
+        };
+
+
         document.getElementById('buttonUp').addEventListener('click', function(event) {
             console.log('Button: UP');
             event.preventDefault();

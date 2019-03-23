@@ -17,7 +17,8 @@ export default {
     },
     'turnA': blockSet => {
         console.log('Function: A');
-        for(let block of blockSet.blockArray) {
+        for(let index of Object.keys(blockSet.blockArray)) {
+            let block = blockSet.blockArray[index];
             let indexI = block.indexI + 0.5;
             let indexJ = block.indexJ + 0.5;
             block.indexI = -indexJ - 0.5;
@@ -26,7 +27,8 @@ export default {
     },
     'turnB': blockSet => {
         console.log('Function: B');
-        for(let block of blockSet.blockArray) {
+        for(let index of Object.keys(blockSet.blockArray)) {
+            let block = blockSet.blockArray[index];
             let indexI = block.indexI + 0.5;
             let indexJ = block.indexJ + 0.5;
             block.indexI = +indexJ - 0.5;
