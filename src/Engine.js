@@ -4,9 +4,9 @@ import TableView from './views/TableView';
 
 export default class Engine {
 
-	constructor (width, height) {
-		this.board = new Board(width, height);
-		this.view = new TableView(this.board);
+	constructor () {
+		this.board = null;
+		this.view = null
 		this.interval = null;
 		this.paused = false;
 		this.level = 0;
@@ -32,10 +32,19 @@ export default class Engine {
 		return this.board.getBlock(i, j);
 	}
 
-	start() {
-		this.board = new Board(this.width, this.height);
+	init(width, height, node) {
+		this.board = new Board(width, height);
+		this.view = new TableView(this.board);
+		this.draw(node);
 		this.view.refreshAll();
+	}
+
+	start() {
 		this.resume();
+	}
+
+	stop() {
+
 	}
 
 	pause() {

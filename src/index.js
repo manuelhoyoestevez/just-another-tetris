@@ -36,16 +36,16 @@ function getMovement(keyCode){
         const width = tetrisTag.getAttribute('width') || 13;
         const height = tetrisTag.getAttribute('height') || 33;
         
-        let engine = new Engine(width, height);
+        let engine = new Engine();
+        engine.init(width, height, tetrisTag);
         engine.draw(tetrisTag);
 
         engine.start();
 
         document.onkeydown = function checkKey(event) {
             event = event || window.event;
-console.log('event', event);
             const movementCode = getMovement(event.keyCode);
-console.log('movementCode', movementCode);
+            
             if(movementCode !== null){
                 engine.move(movementCode);
             }

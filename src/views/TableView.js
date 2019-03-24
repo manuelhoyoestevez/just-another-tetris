@@ -1,6 +1,11 @@
 export default class TableView {
 
-	constructor (board) {
+	constructor(board) {
+		this.paused = false;
+		this.setBoard(board);
+	}
+
+	setBoard(board) {
 		this.board = board;
 		let emptyText = document.createTextNode('');
 		let table = document.createElement('table');
@@ -18,8 +23,8 @@ export default class TableView {
 		this.tableNode = table;
 	}
 
-	setPaused(paused){
-		
+	setPaused(paused) {
+		this.paused = paused;
 	}
 
 	move(movementResult) {
