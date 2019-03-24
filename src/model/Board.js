@@ -93,13 +93,12 @@ export default class Board {
                 const indexI = this.blockSet.indexI + block.indexI;
                 const indexJ = this.blockSet.indexJ + block.indexJ;
 
-                if(heights.indexOf(indexI) < 0){
-                    heights.push(indexI);
-                }
-
                 if(indexI < 0){
                     ret.gameover = true;
                     break;
+                }
+                else if(heights.indexOf(indexI) < 0){
+                    heights.push(indexI);
                 }
 
                 this.blockIndex[indexI][indexJ] = block;

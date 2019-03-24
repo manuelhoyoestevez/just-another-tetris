@@ -1,56 +1,29 @@
 table {
-  border-collapse: collapse;
+  position: relative;
+  top: 20px;
+  left: 240px;
+  
+  border: 1px solid red;
+
+  border-collapse: separate;
+  border-spacing: 0px;
 }
 
-table, td, th {
-  border: 1px solid black;
-}
-
-td{
+td {
+  box-sizing: border-box;
   width:16px;
   height:16px;
-  overflow:hidden;
-  word-wrap:break-word;
 }
 
-.filled{
-  background-color: blue;
+td.filled {
+  border: 2px solid red;
+  background-color: orange;
 }
 
-h1{
-  text-align: center;
-}
-
-.container{
-  display:flex;
-  width:100%;
-  justify-content: center;
-  align-items:center;
-}
-
-#countLabel{
-  margin: 40px;
-  font-size: 2rem;
-}
-
-button{
-  display: inline-block;
-  width: 80px;
-  font-weight: 400;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  border: 1px solid transparent;
-  padding: .375rem .75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  border-radius: .25rem;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-  color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+#main {
+  width:  640px;
+  height: 400px;
+  border: 1px solid black;
+  background-image: url("images/background/sh_level_00.gif");
+  background-color: red;
 }

@@ -56,7 +56,9 @@ export default class Engine {
 	resume() {
 		this.paused = false;
 		this.view.setPaused(this.paused);
-		this.interval = setInterval(() => { this.move('down'); }, Levels[this.level]['speedTime']);
+		this.interval = setInterval(() => {
+			this.move('down');
+		}, Levels[this.level]['speedTime']);
 	}
 
 	move(movement) {
