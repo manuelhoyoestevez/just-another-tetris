@@ -15,17 +15,21 @@ export default class Board {
         return line;
     }
 
+    randomInt(length) {
+       return parseInt(Math.floor(parseInt(length) * Math.random()));
+    }
+
     constructor (width, height) {
-        this.height = height;
-        this.width = width;
+        this.height = parseInt(height);
+        this.width = parseInt(width);
         this.blockIndex = [];
         this.next = 0;
-
-        this.tetrominos = ['I', 'O', 'L', 'J', 'Z', 'S', 'T',];
-
+        this.tetrominos = ['I', 'O', 'L', 'J', 'Z', 'S', 'T'];
+        this.usedTetrominos = {};
         this.blockSet = this.generateNewBlockSet();
-
         this.blockSetBuffer = [];
+
+        
 
         for(let k = 0; k < 3; k++){
             this.blockSetBuffer.push(this.generateNewBlockSet());
@@ -38,9 +42,13 @@ export default class Board {
     
     generateNewBlockSet() {
         let blockArray = [];
-        this.next = (this.next + 1) % this.tetrominos.length;
-        const index = this.next; // Math.round((this.tetrominos.length - 1) * Math.random());
-        const tetrominoType = this.tetrominos[index];
+        const tetrominoType = this.tetrominos[this.randomInt(this.tetrominos.length)];
+
+        if(!this.usedTetrominos.hasOwnProperty(tetrominoType)){
+            this.usedTetrominos[tetrominoType] = 0;
+        }
+
+        this.usedTetrominos[tetrominoType]++;
 
         for(let pair of Tetrominos[tetrominoType]){
             blockArray.push(new Block(pair[0], pair[1], tetrominoType, 0));
@@ -54,6 +62,10 @@ export default class Board {
         return this.blockSetBuffer.shift();
     }
 
+    inBoard(i, j) {
+        return i >= 0 && j >= 0 && i < this.height && j < this.width;
+    }
+
     getBlock(i, j) {
         let ret = this.blockSet.getBlock(i, j);
         
@@ -61,7 +73,7 @@ export default class Board {
             return ret;
         }
 
-        return this.blockIndex[i][j];
+        return this.inBoard(i, j) ? this.blockIndex[i][j] : null;
     }
 
     lineOn(i) {
@@ -83,10 +95,57 @@ export default class Board {
             crash: this.crash(newBlockSet),
             movement: movement,
             gameover: false,
-            lines: []
+            lines: [],
+            changes: []
         };
 
         if(!ret.crash) {
+            let changes = {};
+
+            for(let block of this.blockSet.blockArray){
+                const indexI = this.blockSet.indexI + block.indexI;
+                const indexJ = this.blockSet.indexJ + block.indexJ;
+
+                if(!changes.hasOwnProperty(indexI)){
+                    changes[indexI] = {};
+                }
+
+                if(!changes[indexI].hasOwnProperty(indexJ)){
+                    changes[indexI][indexJ] = {};
+                }
+                
+                changes[indexI][indexJ]['before'] = block;
+            }
+
+            for(let block of newBlockSet.blockArray){
+                const indexI = newBlockSet.indexI + block.indexI;
+                const indexJ = newBlockSet.indexJ + block.indexJ;
+
+                if(!changes.hasOwnProperty(indexI)){
+                    changes[indexI] = {};
+                }
+
+                if(!changes[indexI].hasOwnProperty(indexJ)){
+                    changes[indexI][indexJ] = {};
+                }
+                
+                changes[indexI][indexJ]['after'] = block;
+            }
+
+            for(let i in changes){
+                for(let j in changes[i]){
+                    if(!changes[i][j].hasOwnProperty('before')){
+                        ret.changes.push([i, j, 'fill']);
+                    }
+                    else if(!changes[i][j].hasOwnProperty('after')){
+                        ret.changes.push([i, j, 'clear']);
+                    }
+                    else if(!changes[i][j]['before'].equals(changes[i][j]['after'])){
+                        ret.changes.push([i, j, 'change']);
+                    }
+                }
+            }
+            
             this.blockSet = newBlockSet;
         }
         else if(movement === 'down'){
@@ -120,6 +179,12 @@ export default class Board {
             }
             
             this.blockSet = this.getNextBlockSet();
+
+            for(let block of this.blockSet.blockArray){
+                const indexI = this.blockSet.indexI + block.indexI;
+                const indexJ = this.blockSet.indexJ + block.indexJ;
+                ret.changes.push([indexI, indexJ, 'fill']);
+            }
         }
 
         return ret;
@@ -151,5 +216,27 @@ export default class Board {
         }
 
         return false;
+    }
+
+    generateRandomBlock() {
+        let randomI = this.randomInt(this.height);
+        let randomJ = this.randomInt(this.width);
+
+        for(let i = 0; i < this.height; i++){
+            for(let j = 0; j < this.width; j++){
+
+                let indexI = (randomI + i) % this.height;
+                let indexJ = (randomJ + j) % this.width;
+
+                if(this.blockIndex[indexI][indexJ] === null){
+                    const tetrominoType = this.tetrominos[this.randomInt(this.tetrominos.length)];
+                    const block = new Block(indexJ, indexI, tetrominoType, 0);
+                    this.blockIndex[indexI][indexJ] = block
+                    return block;
+                }
+            }
+        }
+
+        return null;
     }
 }

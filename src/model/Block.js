@@ -12,4 +12,8 @@ export default class Block {
 	copy() {
 		return new Block(this.indexJ, this.indexI, this.type, this.status);
 	}
+
+	equals (block) {
+		return this.type === block.type && this.status === block.status;
+	}
 }

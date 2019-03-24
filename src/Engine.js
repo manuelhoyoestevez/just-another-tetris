@@ -10,6 +10,10 @@ export default class Engine {
 		this.interval = null;
 		this.paused = false;
 		this.level = 0;
+		this.lines = 0;
+		this.score = 0;
+
+		this.tic = 0;
 	}
 
 	draw(node) {
@@ -54,20 +58,53 @@ export default class Engine {
 	}
 
 	resume() {
+		let _this = this;
 		this.paused = false;
 		this.view.setPaused(this.paused);
 		this.interval = setInterval(() => {
-			this.move('down');
-		}, Levels[this.level]['speedTime']);
+
+			if(_this.tic++ % Levels[_this.level]['speedTime'] == 0){
+				_this.move('down');
+			}
+
+		}, 10);
 	}
 
 	move(movement) {
 		let ret = this.board.move(movement);
 
-		// Pueden pasar varias cosas
-		// La vista debe actuar en consecuencia
+		if(ret.gameover){
+			clearInterval(this.interval);
+			this.view.gameOver();
+			return ret;
+		}
+
+		else if(ret.crash && ret.movement === 'down') {
+			this.score++;
+			document.getElementById('score').textContent = this.score;
+			
+			if(ret.lines.length > 0){
+				this.lines += ret.lines.length;
+
+				for(let i = this.level; i < Levels.length; i++){
+					if(this.lines >= Levels[i]['lines']){
+						this.level = i;
+					}
+					else {
+						break;
+					}
+				}
+
+				document.getElementById('lines').textContent = this.lines;
+				document.getElementById('level').textContent = this.level;
+			}
+		}
 
 		this.view.move(ret);
 		return ret;
+	}
+
+	setLines() {
+
 	}
 }

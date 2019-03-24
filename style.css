@@ -18,7 +18,7 @@ table.tetris-board  {
   border-spacing: 0px;
 
   background-color: black;
-  opacity: 0.5;
+  opacity: 1.0;
 }
 
 table.tetris-board td {
@@ -29,12 +29,56 @@ table.tetris-board td {
 }
 
 table.tetris-board td.filled {
-  border: 2px solid red;
+  background-image: url("images/blocks/a.gif");
   background-color: orange;
   opacity: 1.0;
 }
 
 table.tetris-board td.filled.I {
-  border: 2px solid red;
+  background-image: url("images/blocks/i.gif");
+  background-color: red;
+  opacity: 1.0;
+}
+
+table.tetris-board td.filled.O {
+  background-image: url("images/blocks/o.gif");
   background-color: blue;
+  opacity: 1.0;
+}
+
+table.tetris-board td.filled.L {
+  background-image: url("images/blocks/l.gif");
+  background-color: magenta;
+  opacity: 1.0;
+}
+
+table.tetris-board td.filled.J {
+  background-image: url("images/blocks/j.gif");
+  background-color: white;
+  opacity: 1.0;
+}
+
+table.tetris-board td.filled.Z {
+  background-image: url("images/blocks/z.gif");
+  background-color: cyan;
+  opacity: 1.0;
+}
+
+table.tetris-board td.filled.S {
+  background-image: url("images/blocks/s.gif");
+  background-color: green;
+  opacity: 1.0;
+}
+
+table.tetris-board td.filled.T {
+  background-image: url("images/blocks/t.gif");
+  background-color: brown;
+  opacity: 1.0;
+}
+
+div#info table{
+  color: white;
+  background-color: black;
+  opacity: 0.7;
+  width: 200px;
 }
