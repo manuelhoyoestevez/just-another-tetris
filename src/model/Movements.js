@@ -16,8 +16,8 @@ export default {
             let block = blockSet.blockArray[index];
             let indexI = block.indexI + 0.5;
             let indexJ = block.indexJ + 0.5;
-            block.indexI = +indexJ - 0.5;
-            block.indexJ = -indexI - 0.5;
+            block.indexI = -indexJ - 0.5;
+            block.indexJ = +indexI - 0.5;
         }
     },
     'turnB': blockSet => {
@@ -25,8 +25,8 @@ export default {
             let block = blockSet.blockArray[index];
             let indexI = block.indexI + 0.5;
             let indexJ = block.indexJ + 0.5;
-            block.indexI = -indexJ - 0.5;
-            block.indexJ = +indexI - 0.5;
+            block.indexI = +indexJ - 0.5;
+            block.indexJ = -indexI - 0.5;
         }
     }
 };

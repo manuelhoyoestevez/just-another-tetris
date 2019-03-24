@@ -9,6 +9,7 @@ export default class TableView {
 		this.board = board;
 		let emptyText = document.createTextNode('');
 		let table = document.createElement('table');
+		table.setAttribute('class', 'tetris-board');
 
 		for(let i = 0; i < this.board.height; i++){
 			let tr = document.createElement('tr');
@@ -38,9 +39,10 @@ export default class TableView {
 
 				if(block !== null){
 					this.tableNode.children[i].children[j].classList.add("filled");
+					this.tableNode.children[i].children[j].classList.add(block.type);
 				}
 				else {
-					this.tableNode.children[i].children[j].classList.remove("filled");
+					this.tableNode.children[i].children[j].classList.remove('filled')
 				}
 			}
 		}

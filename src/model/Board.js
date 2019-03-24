@@ -19,7 +19,9 @@ export default class Board {
         this.height = height;
         this.width = width;
         this.blockIndex = [];
-        this.tetrominos = ['I']; //['J', 'L', 'I'];
+        this.next = 0;
+
+        this.tetrominos = ['I', 'O', 'L', 'J', 'Z', 'S', 'T',];
 
         this.blockSet = this.generateNewBlockSet();
 
@@ -34,9 +36,10 @@ export default class Board {
         }
     }
     
-    generateNewBlockSet(){
+    generateNewBlockSet() {
         let blockArray = [];
-        const index = Math.round((this.tetrominos.length - 1) * Math.random());
+        this.next = (this.next + 1) % this.tetrominos.length;
+        const index = this.next; // Math.round((this.tetrominos.length - 1) * Math.random());
         const tetrominoType = this.tetrominos[index];
 
         for(let pair of Tetrominos[tetrominoType]){
