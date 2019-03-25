@@ -15,21 +15,24 @@ export default class Board {
         return line;
     }
 
-    randomInt(length) {
-       return parseInt(Math.floor(parseInt(length) * Math.random()));
+    /**
+     * Número entero aleatorio entre 0 y max - 1
+     * @param {number} max
+     * @return {number}
+     */
+    randomInt(max) {
+       return parseInt(Math.floor(parseInt(max) * Math.random()));
     }
 
-    constructor (width, height) {
+    constructor (width, height, blockSet = null) {
         this.height = parseInt(height);
         this.width = parseInt(width);
         this.blockIndex = [];
         this.next = 0;
         this.tetrominos = ['I', 'O', 'L', 'J', 'Z', 'S', 'T'];
         this.usedTetrominos = {};
-        this.blockSet = this.generateNewBlockSet();
+        this.blockSet = blockSet || this.generateNewBlockSet();
         this.blockSetBuffer = [];
-
-        
 
         for(let k = 0; k < 3; k++){
             this.blockSetBuffer.push(this.generateNewBlockSet());
@@ -218,9 +221,9 @@ export default class Board {
         return false;
     }
 
-    generateRandomBlock() {
-        let randomI = this.randomInt(this.height);
-        let randomJ = this.randomInt(this.width);
+    generateRandomBlock(fixedI = null, fixedJ = null) {
+        let randomI = fixedI || this.randomInt(this.height);
+        let randomJ = fixedJ || this.randomInt(this.width);
 
         for(let i = 0; i < this.height; i++){
             for(let j = 0; j < this.width; j++){
@@ -229,9 +232,8 @@ export default class Board {
                 let indexJ = (randomJ + j) % this.width;
 
                 if(this.blockIndex[indexI][indexJ] === null){
-                    const tetrominoType = this.tetrominos[this.randomInt(this.tetrominos.length)];
-                    const block = new Block(indexJ, indexI, tetrominoType, 0);
-                    this.blockIndex[indexI][indexJ] = block
+                    const block = new Block(indexJ, indexI, this.tetrominos[this.randomInt(this.tetrominos.length)], 0);
+                    this.blockIndex[indexI][indexJ] = block;
                     return block;
                 }
             }
