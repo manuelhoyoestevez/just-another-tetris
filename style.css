@@ -29,50 +29,42 @@ table.tetris-board td {
 }
 
 table.tetris-board td.filled {
-  background-image: url("images/blocks/a.gif");
-  background-color: orange;
+  background-image: url("images/blocks/icons/a.png");
   opacity: 1.0;
 }
 
 table.tetris-board td.filled.I {
-  background-image: url("images/blocks/i.gif");
-  background-color: red;
+  background-image: url("images/blocks/icons/i.png");
   opacity: 1.0;
 }
 
 table.tetris-board td.filled.O {
-  background-image: url("images/blocks/o.gif");
-  background-color: blue;
+  background-image: url("images/blocks/icons/o.png");
   opacity: 1.0;
 }
 
 table.tetris-board td.filled.L {
-  background-image: url("images/blocks/l.gif");
-  background-color: magenta;
+  background-image: url("images/blocks/icons/l.png");
   opacity: 1.0;
 }
 
 table.tetris-board td.filled.J {
-  background-image: url("images/blocks/j.gif");
-  background-color: white;
+  background-image: url("images/blocks/icons/j.png");
   opacity: 1.0;
 }
 
 table.tetris-board td.filled.Z {
-  background-image: url("images/blocks/z.gif");
-  background-color: cyan;
+  background-image: url("images/blocks/icons/z.png");
   opacity: 1.0;
 }
 
 table.tetris-board td.filled.S {
-  background-image: url("images/blocks/s.gif");
-  background-color: green;
+  background-image: url("images/blocks/icons/s.png");
   opacity: 1.0;
 }
 
 table.tetris-board td.filled.T {
-  background-image: url("images/blocks/t.gif");
-  background-color: brown;
+  background-image: url("images/blocks/icons/t.png");
   opacity: 1.0;
 }
 
