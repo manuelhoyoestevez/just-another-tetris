@@ -105,7 +105,6 @@ export default class Engine {
 
 				document.getElementById('lines').textContent = this.lines;
 				document.getElementById('level').textContent = this.level;
-				document.getElementById('last_lines').textContent = ret.lines.join(', ');
 			}
 		}
 
