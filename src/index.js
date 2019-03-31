@@ -15,6 +15,7 @@ function getMovement(keyCode){
            return 'down';
        
        case 13: // Enter
+           return 'pause';
        case 16: // Shift
        case 17: // Cntl
        case 18: // AltGr
@@ -46,9 +47,17 @@ function getMovement(keyCode){
             event = event || window.event;
             const movementCode = getMovement(event.keyCode);
             
-            if(movementCode !== null){
-                engine.move(movementCode);
+            switch(movementCode){
+                case 'pause':
+                    engine.pauseOrResume();
+                    break;
+                default:
+                    if(movementCode !== null){
+                        engine.move(movementCode);
+                    }
+
             }
+        
 
             return false;
         };

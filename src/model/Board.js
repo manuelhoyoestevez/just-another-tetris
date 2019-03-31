@@ -241,4 +241,12 @@ export default class Board {
 
         return null;
     }
+
+    generateRandomBlocks(height){
+        for(let i = 0; i < height; i++){
+			for(let j = 0; j < 4; j++){
+                this.generateRandomBlock(this.height - 1 - i);
+            }
+		}
+    }
 }
