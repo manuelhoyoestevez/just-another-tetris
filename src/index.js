@@ -1,5 +1,7 @@
 import Engine from './Engine';
 
+//require('babel-polyfill');
+
 function getMovement(keyCode){
     switch(keyCode){
         case 37:

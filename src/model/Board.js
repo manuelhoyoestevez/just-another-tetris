@@ -33,6 +33,7 @@ export default class Board {
         this.usedTetrominos = {};
         this.blockSet = blockSet || this.generateNewBlockSet();
         this.blockSetBuffer = [];
+        this.compare = (n, m) => n - m;
 
         for(let k = 0; k < 3; k++){
             this.blockSetBuffer.push(this.generateNewBlockSet());
@@ -169,7 +170,7 @@ export default class Board {
                 this.blockIndex[indexI][indexJ] = block;
             }
 
-            for(let i of heights.sort()){
+            for(let i of heights.sort(this.compare)){
                 if(this.lineOn(i)) {
                     ret.lines.push(i);
 
