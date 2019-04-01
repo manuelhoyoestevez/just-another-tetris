@@ -38,6 +38,10 @@ export default class Engine {
 
 	init(width, height, node) {
 		this.board = new Board(width, height);
+
+		this.board.generateRandomBlocks(10);
+
+
 		this.view = new TableView(this.board);
 		this.draw(node);
 		this.view.refreshAll();
@@ -49,6 +53,10 @@ export default class Engine {
 
 	stop() {
 
+	}
+
+	pauseOrResume() {
+		this.paused ? this.resume() : this.pause();
 	}
 
 	pause() {
@@ -102,9 +110,5 @@ export default class Engine {
 
 		this.view.move(ret);
 		return ret;
-	}
-
-	setLines() {
-
 	}
 }
