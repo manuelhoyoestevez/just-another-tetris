@@ -1,6 +1,6 @@
 import Engine from './Engine';
 
-//require('babel-polyfill');
+require('babel-polyfill');
 
 function getMovement(keyCode){
     switch(keyCode){
@@ -38,10 +38,11 @@ function getMovement(keyCode){
         const tetrisTag = document.getElementById('tetris');
         const width = tetrisTag.getAttribute('width') || 13;
         const height = tetrisTag.getAttribute('height') || 33;
+
+        const previewTag = document.getElementById('preview');
         
         let engine = new Engine();
-        engine.init(width, height, tetrisTag);
-        engine.draw(tetrisTag);
+        engine.init(width, height, tetrisTag, previewTag);
 
         engine.start();
 
