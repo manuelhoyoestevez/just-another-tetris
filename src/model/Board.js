@@ -43,6 +43,10 @@ export default class Board {
             this.blockIndex.push(this.generateBlankLine());
         }
     }
+
+    getNextBlockSet() {
+        return this.blockSetBuffer[0];
+    }
     
     generateNewBlockSet() {
         let blockArray = [];
@@ -61,7 +65,7 @@ export default class Board {
         return new BlockSet(tetrominoType, 0, Math.floor(this.width / 2), blockArray);
     }
 
-    getNextBlockSet() {
+    shiftNextBlockSet() {
         this.blockSetBuffer.push(this.generateNewBlockSet());
         return this.blockSetBuffer.shift();
     }
@@ -182,7 +186,7 @@ export default class Board {
                 }
             }
             
-            this.blockSet = this.getNextBlockSet();
+            this.blockSet = this.shiftNextBlockSet();
 
             for(let block of this.blockSet.blockArray){
                 const indexI = this.blockSet.indexI + block.indexI;

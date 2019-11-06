@@ -12,7 +12,7 @@ export default class TableView {
 		table.setAttribute('class', 'tetris-board');
 
 		for(let i = 0; i < this.board.height; i++){
-			let tr = document.createElement('tr');
+			const tr = document.createElement('tr');
 			for(let j = 0; j < this.board.width; j++){
 				let td = document.createElement('td');
 				td.appendChild(emptyText);

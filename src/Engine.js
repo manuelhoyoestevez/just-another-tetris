@@ -5,15 +5,15 @@ import TableView from './views/TableView';
 export default class Engine {
 
   constructor () {
-	this.board = null;
-	this.preboard = null;
+    this.board = null;
+    this.preboard = null;
     this.view = null
-	this.interval = null;
-	this.preview = null;
+    this.interval = null;
+    this.preview = null;
     this.paused = false;
     this.level = 0;
     this.lines = 0;
-	this.score = 0;
+    this.score = 0;
     this.tic = 0;
   }
 
@@ -34,17 +34,23 @@ export default class Engine {
   }
 
   init(width, height, tetrisNode, previewNode) {
-	this.board = new Board(width, height);
-	this.preboard = new Board(6, 6);
+    this.board = new Board(width, height);
+
+    const previewTetromino = this.board.blockSetBuffer[0].copy();
+    previewTetromino.indexI = 3;
+    previewTetromino.indexJ = 3;
+
+    this.preboard = new Board(6, 6, previewTetromino);
 
     //this.board.generateRandomBlocks(10);
 
-	this.view = new TableView(this.board);
-	this.preview = new TableView(this.board);
+    this.view = new TableView(this.board);
+    this.preview = new TableView(this.preboard);
 
-	tetrisNode.appendChild(this.view.tableNode);
-	previewNode.appendChild(this.preview.tableNode);
+    tetrisNode.appendChild(this.view.tableNode);
+    previewNode.appendChild(this.preview.tableNode);
     this.view.refreshAll();
+    this.preview.refreshAll();
   }
 
   start() {
@@ -76,15 +82,20 @@ export default class Engine {
   }
 
   move(movement) {
-    let ret = this.board.move(movement);
-
+    const ret = this.board.move(movement);
     if(ret.gameover){
       clearInterval(this.interval);
       this.view.gameOver();
       return ret;
     }
 
-    else if(ret.crash && ret.movement === 'down') {
+    if(ret.crash && ret.movement === 'down') {
+      const previewTetromino = this.board.blockSetBuffer[0].copy();
+      previewTetromino.indexI = 3;
+      previewTetromino.indexJ = 3;
+      this.preboard.blockSet = previewTetromino;
+      this.preview.refreshAll();
+
       this.score++;
       document.getElementById('score').textContent = this.score;
       
