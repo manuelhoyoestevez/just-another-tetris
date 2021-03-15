@@ -1,23 +1,21 @@
 {
-  "name": "react-training",
-  "version": "1.0.0",
-  "description": "",
+  "name": "just-another-tetris",
+  "version": "0.0.1",
+  "description": "Just another Tetris",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:dev": "webpack --mode development",
     "build:prod": "webpack --mode production",
-    "start": "webpack-dev-server --open --host $HOST --port $PORT",
-    "on-windows": "webpack-dev-server --open --host localhost --port 8080"
+    "start": "webpack-dev-server --open --host $HOST --port $PORT"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "tetris"
+  ],
+  "author": "Manuel Hoyo Estévez <manuelhoyoestevez@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "redux": "^4.0.1"
+    "babel-polyfill": "^6.26.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

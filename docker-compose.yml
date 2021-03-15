@@ -1,21 +1,16 @@
 version: "2"
 
 services:
-  react-training:
+  just-another-tetris:
     build: .
-    image: "react/training:v1"
-    container_name: "react-training"
-    hostname: "react-training"
+    image: "just-another-tetris:0.0.1"
+    container_name: "just-another-tetris"
+    hostname: "just-another-tetris"
     environment:
-      - SERVICE_NAME=react-training
+      - SERVICE_NAME=just-another-tetris
       - HOST=0.0.0.0
       - PORT=8080
     volumes:
       - .:/usr/src/app
-#    command: "tail -f /dev/null"
-#    command: "npm install"
-#    command: "npm run build:dev"
-    expose:
-      - "8080"
     ports:
       - "8080:8080"
